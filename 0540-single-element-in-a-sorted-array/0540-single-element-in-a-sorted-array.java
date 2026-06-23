@@ -15,7 +15,8 @@ class Solution {
                 return nums[mid];
             }
 
-            if((mid % 2 == 1 && nums[mid] == nums[mid-1]) || (mid % 2 == 0 && nums[mid] == nums[mid+1]))
+            if((mid % 2 == 1 && nums[mid] == nums[mid-1]) 
+            || (mid % 2 == 0 && nums[mid] == nums[mid+1]))
             {
                 low = mid + 1;
             }
