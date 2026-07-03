@@ -1,34 +1,28 @@
 class Solution {
     public int[] rowAndMaximumOnes(int[][] mat) {
-        Map<Integer,Integer> map = new HashMap<>();
         int row = mat.length;
         int col = mat[0].length;
-        int count = 0;
-        int ans [] = new int[2];
-        ans[0] = -1;
-        ans[1] = -1;
 
-        for(int i=0; i<row; i++)
-        {
-            for(int j=0; j<col; j++)
-            {
-                if(mat[i][j] == 1)
-                {
-                    count++;
+        int max_count = -1;
+        int index = -1;
+
+        // Linear scan: check every single element row by row
+        for (int i = 0; i < row; i++) {
+            int current_ones = 0;
+            
+            for (int j = 0; j < col; j++) {
+                if (mat[i][j] == 1) {
+                    current_ones++;
                 }
             }
-            map.put(i,count);
-            count = 0;
-        }
 
-        for(Map.Entry<Integer,Integer> e : map.entrySet())
-        {
-            if(e.getValue() > ans[1])
-            {
-                ans[0] = e.getKey();
-                ans[1] = e.getValue();
+            // Update if we find a row with MORE ones
+            if (current_ones > max_count) {
+                index = i;
+                max_count = current_ones;
             }
         }
-        return ans;
+        
+        return new int[]{index, max_count};
     }
 }
