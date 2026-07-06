@@ -3,27 +3,22 @@ class Solution {
         int row = matrix.length;
         int col = matrix[0].length;
 
-        for(int i=0; i<row; i++)
+        int i = 0;
+        int j = col - 1;
+
+        while(i < row && j >=0)
         {
-            int low = 0;
-            int high = col - 1;
-
-            while(low <= high)
+            if(matrix[i][j] == target)
             {
-                int mid = low + (high - low) / 2;
-                if(matrix[i][mid] == target)
-                {
-                    return true;
-                }
-
-                else if(matrix[i][mid] > target)
-                {
-                    high = mid - 1;
-                }
-                else
-                {
-                    low = mid + 1;
-                }
+                return true;
+            }
+            else if(matrix[i][j] > target)
+            {
+                j--;
+            }
+            else
+            {
+                i++;
             }
         }
         return false;
