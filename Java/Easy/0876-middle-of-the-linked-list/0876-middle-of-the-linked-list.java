@@ -12,7 +12,6 @@ class Solution {
     public ListNode middleNode(ListNode head) {
         ListNode temp = head;
         int mid = 0;
-        
         int counter = 0;
 
         while(temp != null)
