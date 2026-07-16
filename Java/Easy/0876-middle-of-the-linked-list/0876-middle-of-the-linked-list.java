@@ -20,7 +20,7 @@ class Solution {
             temp = temp.next;
         }
 
-        mid = (mid / 2) ;
+        mid = (mid / 2);
         temp = head;
 
         while(counter < mid)
