@@ -15,33 +15,15 @@ class Solution {
         
         ListNode slow = head;
         ListNode fast = head;
+        fast = fast.next.next;
 
         while(fast != null && fast.next != null)
         {
             fast = fast.next.next;
             slow = slow.next;
         }
-        int size = 0;
-
-        ListNode temp = head;
-
-        while(temp != slow)
-        {
-            temp = temp.next;
-            size++;
-        }
-
-        temp = head;
-
-        int i = 0;
-
-        while(i < size-1)
-        {
-            temp = temp.next;
-            i++;
-        }
-        temp.next = temp.next.next;
-
+       
+        slow.next = slow.next.next;
         return head;
     }
 }
