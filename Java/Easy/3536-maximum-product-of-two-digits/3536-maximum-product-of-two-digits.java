@@ -1,20 +1,25 @@
 class Solution {
     public int maxProduct(int n) {
         
-        String s = Integer.toString(n);
-        int arr[] = new int[s.length()];
-        int i = 0;
-        int temp = n;
+        int max1 = 0;
+        int max2 = 0;
 
-        while(temp != 0)
+        while(n > 0)
         {
-            if(i > arr.length) break;
-            arr[i] = temp % 10;
-            temp /= 10;
-            i++;
+            int digit = n % 10;
+
+            if(digit > max1)
+            {
+                max2 = max1;
+                max1 = digit;
+            }
+            else if(digit > max2)
+            {
+                max2 = digit;
+            }
+            n /= 10;
         }
 
-        Arrays.sort(arr);
-        return arr[arr.length - 1] * arr[arr.length - 2];
+        return max1 * max2;
     }
 }
