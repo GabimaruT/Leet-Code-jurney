@@ -1,42 +1,31 @@
 class Solution {
     public int missingInteger(int[] nums) {
         
-        if(nums.length == 1) return nums[0] + 1;
-        int prefix = 0;
-        int counter = 0;
+        HashSet<Integer> set = new HashSet<>();
+        int prefix = nums[0];
 
         for(int i=1; i<nums.length; i++)
         {
-            counter++;
             if(nums[i] == nums[i - 1] + 1)
             {
-                prefix += nums[i - 1];
+                prefix += nums[i];
             }
             else
             {
-                prefix += nums[i - 1];
                 break;
             }
         }
 
-        if(counter == nums.length - 1) 
+        for(int num : nums)
         {
-           if(nums[nums.length - 2] == nums[nums.length - 1] - 1)
-           {
-                 prefix += nums[nums.length - 1];
-           }
+            set.add(num);
         }
 
-         Arrays.sort(nums);
-
-        for(int i=0; i<nums.length; i++)
+        while(set.contains(prefix))
         {
-            if(prefix == nums[i])
-            {
-                prefix++;
-            }
+            prefix++;
         }
+
         return prefix;
-
     }
 }
