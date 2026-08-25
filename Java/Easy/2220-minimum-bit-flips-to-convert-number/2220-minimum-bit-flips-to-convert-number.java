@@ -9,7 +9,6 @@ class Solution {
             if((ans &(1 << i)) != 0)
             {
                 count++;
-                System.out.println(i);
             }
         }
         return count;
