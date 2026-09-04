@@ -1,20 +1,14 @@
 class Solution {
     public int singleNumber(int[] nums) {
         
-        Map<Integer,Integer> map = new HashMap<>();
+        int ones = 0;
+        int tows = 0;
 
         for(int i=0; i<nums.length; i++)
         {
-            map.put(nums[i],map.getOrDefault(nums[i],0) + 1);
+            ones = (ones ^ nums[i]) & ~tows;
+            tows = (tows ^ nums[i]) & ~ones;
         }
-
-        for(Map.Entry<Integer,Integer> e : map.entrySet())
-        {
-            if(e.getValue() == 1)
-            {
-                return e.getKey();
-            }
-        }
-        return -1;
+        return ones;
     }
 }
