@@ -1,42 +1,52 @@
+import java.util.Stack;
+
 class MinStack {
 
-    private Stack<int []> st;
-    public MinStack() {
+    private Stack<Long> s;
+    private long min;
 
-        st = new Stack<>();
+    public MinStack() {
+        s = new Stack<>();
     }
     
-    public void push(int value) {
+    public void push(int val) {
+        long value = val;
         
-        if(st.isEmpty())
-        {
-            st.push(new int[]{value,value});
-        }
-        else
-        {
-            int minvalue = st.peek()[1];
-            st.push(new int[]{value,Math.min(value,minvalue)});
+        if (s.isEmpty()) {
+            s.push(value);
+            min = value;
+        } else if (value < min) {
+            // Store encoded value (always < value) and update min
+            s.push(2 * value - min);
+            min = value;
+        } else {
+            // Store unencoded value when it's >= current min
+            s.push(value);
         }
     }
     
     public void pop() {
-        st.pop();
+        if (s.isEmpty()) return;
+
+        long x = s.pop();
+        
+        // Only restore previous min if x was an encoded value
+        if (x < min) {
+            min = 2 * min - x;
+        }
     }
     
     public int top() {
-        return st.peek()[0];
+        long topElement = s.peek();
+        
+        // If topElement < min, the actual pushed value is the current min
+        if (topElement < min) {
+            return (int) min;
+        }
+        return (int) topElement;
     }
     
     public int getMin() {
-        return st.peek()[1];
+        return (int) min;
     }
 }
-
-/**
- * Your MinStack object will be instantiated and called as such:
- * MinStack obj = new MinStack();
- * obj.push(value);
- * obj.pop();
- * int param_3 = obj.top();
- * int param_4 = obj.getMin();
- */
