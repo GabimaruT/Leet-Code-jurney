@@ -1,26 +1,27 @@
 class Solution {
     public int[] nextGreaterElements(int[] nums) {
         
-        if(nums.length == 1) return new int[]{-1};
-        
         int nextGratest[] = new int[nums.length];
+        Stack<Integer> st = new Stack<>();
 
-        for(int i=0; i<nums.length; i++)
+        for(int i=2*nums.length-1; i>=0; i--)
         {
-            for(int j=i+1; j<i+nums.length; j++)
+            while(!st.isEmpty() && st.peek() <= nums[i%nums.length])
             {
-                int idx = j % nums.length;
-
-                if(nums[idx] > nums[i])
-                {
-                    nextGratest[i] = nums[idx];
-                    break;
-                }
-                else
+                st.pop();
+            }
+            if(i<nums.length)
+            {
+                if(st.isEmpty())
                 {
                     nextGratest[i] = -1;
                 }
+                else
+                {
+                    nextGratest[i] = st.peek();
+                }
             }
+            st.push(nums[i%nums.length]);
         }
         return nextGratest;
     }
