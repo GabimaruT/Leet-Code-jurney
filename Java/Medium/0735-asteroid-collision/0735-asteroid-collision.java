@@ -1,27 +1,51 @@
 class Solution {
-    public int[] asteroidCollision(int[] nums) {
-        Stack<Integer> st=new Stack<>();
-        int n=nums.length;
-        for(int i=0;i<n;i++){
-            if(nums[i]>0){
-                st.push(nums[i]);
-            }else{
-                while(!st.isEmpty()&&st.peek()>0&&st.peek()<Math.abs(nums[i])){
-                    st.pop();
+    public int[] asteroidCollision(int[] asteroids) {
+        List<Integer> list = new LinkedList<>();
+
+        for(int i=0; i<asteroids.length; i++)
+        {
+            if(asteroids[i] > 0)
+            {
+                list.add(asteroids[i]);
+            }
+            else
+            {
+                boolean distroyed = false;
+
+                while(!list.isEmpty() && list.get(list.size() - 1) > 0)
+                {
+                    int top = list.getLast();
+                    int incoming = asteroids[i];
+
+                    if(top < Math.abs(incoming))
+                    {
+                        list.removeLast();
+                    }
+                    else if(top == Math.abs(incoming))
+                    {
+                        list.removeLast();
+                        distroyed = true;
+                        break;
+                    }
+                    else
+                    {
+                        distroyed = true;
+                        break;
+                    }
                 }
-                if(st.isEmpty()||st.peek()<0){
-                    st.push(nums[i]);
-                }
-                if(st.peek()==Math.abs(nums[i])){
-                    st.pop();
+                if(!distroyed)
+                {
+                    list.add(asteroids[i]);
                 }
             }
         }
-        int ans[]=new int[st.size()];
-        int k=st.size()-1;
-        while(!st.isEmpty()){
-            ans[k--]=st.pop();
+        
+        int res [] = new int[list.size()];
+
+        for(int i = 0; i < list.size(); i++)
+        {
+            res[i] = list.get(i);
         }
-        return ans;
+        return res;
     }
 }
