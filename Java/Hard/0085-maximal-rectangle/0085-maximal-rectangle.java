@@ -2,30 +2,26 @@ class Solution {
     public int maximalRectangle(char[][] matrix) {
         int n = matrix.length;
         int m = matrix[0].length;
-        int prefixSum[][] = new int [n][m];
+        int heights[] = new int[m];
         int maxArea = 0;
-
-        for(int j = 0; j < m; j++)
-        {
-            int sum = 0;
-            for(int i = 0; i < n; i++)
-            {
-                if(matrix[i][j] == '1')
-                {
-                    sum += 1;
-                }
-                if(matrix[i][j] == '0')
-                {
-                    sum = 0;
-                }
-                prefixSum[i][j] = sum;
-            }
-        }
 
         for(int i = 0; i < n; i++)
         {
-            maxArea = Math.max(maxArea, largestRectangleArea(prefixSum[i]));
+            int sum = 0;
+            for(int j = 0; j < m; j++)
+            {
+                if(matrix[i][j] == '1')
+                {
+                    heights[j] += 1;
+                }
+                else
+                {
+                    heights[j] = 0;
+                }
+            }
+             maxArea = Math.max(maxArea, largestRectangleArea(heights));
         }
+
         return maxArea;
     }
     public int largestRectangleArea(int[] heights)
