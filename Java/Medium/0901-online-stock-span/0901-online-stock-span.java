@@ -1,26 +1,19 @@
 class StockSpanner {
-    static List<Integer> days;
+    static Stack<int[]> st;
     public StockSpanner() {
-        days = new ArrayList<>();
+        st = new Stack<>();
     }
     
     public int next(int price) {
-        days.add(price);
-        int count = 1;
+        int res = 1;
 
-        for(int i=days.size()-2; i>=0; i--)
+        while(!st.isEmpty() && st.peek()[0] <= price)
         {
-            if(price >= days.get(i)) 
-            {
-                count++;
-            }
-            else
-            {
-                break;
-            }
+            res += st.pop()[1];
         }
 
-        return count;
+        st.push(new int[] {price , res});
+        return res;
     }
 }
 
