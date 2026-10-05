@@ -1,8 +1,9 @@
 class Solution {
     public int[] maxSlidingWindow(int[] nums, int k) {
         
-        List<Integer> list = new ArrayList<>();
+        int ans[] = new int[nums.length - k + 1];
         Deque<Integer> dq = new ArrayDeque<>();
+        int count = 0;
 
         for(int i=0; i<nums.length; i++)
         {
@@ -19,10 +20,10 @@ class Solution {
             dq.add(i);
             if(i >= k-1)
             {
-                list.add(nums[dq.getFirst()]);
+                ans[count++] = nums[dq.peekFirst()];
             }
         }
 
-        return list.stream().mapToInt(Integer::intValue).toArray();
+        return ans;
     }
 }
