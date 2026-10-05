@@ -1,25 +1,18 @@
 class Solution {
-    public int scoreOfParentheses(String S) {
-        return F(S, 0, S.length());
-    }
-
-    private int F(String S, int i, int j) {
-        int ans = 0, bal = 0;
-
-       
-        for (int k = i; k < j; ++k) {
-            bal += S.charAt(k) == '(' ? 1 : -1;
-            if (bal == 0) {
-                if (k - i == 1) {
-                    ans++;
-                } else {
-                    ans += 2 * F(S, i + 1, k);
-                }
-                
-                i = k + 1; 
+    public int scoreOfParentheses(String s) {
+        Stack<Integer> stack = new Stack<>();
+        stack.push(0);
+        for (int i=0;i<s.length();i++) {
+            if (s.charAt(i) == '(') {
+                stack.push(0);
             }
-        }
+            else if (s.charAt(i) == ')') {
+                int val = stack.pop();
+                int ans = Math.max(2*val,1);
+                stack.push(ans + stack.pop());
+            }
 
-        return ans;
+        }
+        return stack.pop();
     }
 }
